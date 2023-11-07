@@ -7,7 +7,7 @@ Resources:
   SSHSecurityGroupStack:
     Type: AWS::CloudFormation::Stack    
     Properties:
-      TemplateURL: https://unique-bucket-01.s3.eu-west-1.amazonaws.com/sg.yaml
+      TemplateURL: #sg.yaml's template URL where you have located it e.g. S3 bucket
       Parameters:
         ApplicationName: 
           Ref: AWS::StackName
