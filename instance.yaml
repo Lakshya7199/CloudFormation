@@ -1,0 +1,25 @@
+Parameters:
+  VPCId: 
+    Description: VPC too create the securit group and ec2 instance info
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+  SSHSecurityGroupStack:
+    Type: AWS::CloudFormation::Stack    
+    Properties:
+      TemplateURL: https://unique-bucket-01.s3.eu-west-1.amazonaws.com/sg.yaml
+      Parameters:
+        ApplicationName: 
+          Ref: AWS::StackName
+        VPCId:
+          Ref: VPCId
+      TimeoutInMinutes: 5
+
+  ECInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0694d931cee176e7d
+      SecurityGroupIds:
+        - !GetAtt SSHSecurityGroupStack.Outputs.SSHGroupId
+
